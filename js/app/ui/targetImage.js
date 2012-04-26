@@ -13,10 +13,10 @@ mbf.js.ui.MbfTarget = function() {
     this.imageCount = 0;
     this.dialogOpen = false;
     this.startWebtaglet();
-    this.dialog1 = new goog.ui.Dialog();
-    this.dialog1.setEscapeToCancel(false);
-    this.dialog1.setTitle('Sending to My buy friends');
-    this.dialog1.setButtonSet(null);
+    this.dialog = new goog.ui.Dialog();
+    this.dialog.setEscapeToCancel(false);
+    this.dialog.setTitle('Sending to My buy friends');
+    this.dialog.setButtonSet(null);
     this.mbfUser = goog.global.mbfUser;
     this.imageSelectedURL = "";
 };
@@ -59,9 +59,9 @@ mbf.js.ui.MbfTargetImage.prototype.send = function (){
     b.setAttribute("src", d);
     document.getElementsByTagName("head")[0].appendChild(b);
     alert("Product sent! Thanks!");
-    this.dialog1.setVisible(false);
+    this.dialog.setVisible(false);
     this.stopWebtaglet();
-    this.dialog1.dispose();
+    this.dialog.dispose();
 };
 
 /**
@@ -69,9 +69,9 @@ mbf.js.ui.MbfTargetImage.prototype.send = function (){
  */
 
 mbf.js.ui.MbfTargetImage.prototype.cancel = function (){ 
-    this.dialog1.setVisible(false);
+    this.dialog.setVisible(false);
     this.stopWebtaglet();
-    this.dialog1.dispose();
+    this.dialog.dispose();
 }
 
 /**
@@ -84,19 +84,19 @@ mbf.js.ui.MbfTargetImage.prototype.tagProduct = function (c) {
     var popup = null;
     var d = "";
     var content = "";
-    if (this.dialog1.isVisible()) {       
+    if (this.dialog.isVisible()) {       
         /*var productHTML = goog.dom.htmlToDocumentFragment(mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname}));
         goog.dom.getElement("mbf-marklet-content").appendChild(productHTML);*/
         this.imageSelectedURL = this.imageArray[c].src;
         content = mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname});
-        this.dialog1.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
+        this.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
 
     }else{
         this.imageSelectedURL = this.imageArray[c].src;
         content = mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname});
-        this.dialog1.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
+        this.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
     }
-    this.dialog1.setVisible(true);
+    this.dialog.setVisible(true);
     var sendButton = goog.dom.getElement("mbf-button-send");
     var cancelButton = goog.dom.getElement("mbf-button-cancel");
 
@@ -166,5 +166,5 @@ mbf.js.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
 if (!window.isWebtagletRunning) {
     //var con=goog.global.console;
     window.isWebtagletRunning = true;
-    var nuji_webtaglet_instance = new mbf.ui.nujiWebtaglet();
+    var nuji_webtaglet_instance = new mbf.js.ui.MbfTarget();
 };

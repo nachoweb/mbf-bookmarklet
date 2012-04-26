@@ -1,6 +1,6 @@
 {
   // The id is used as a query parameter in the src of the <script> tag.
-  "id": "popup",
+  "id": "mbfBM",
   "paths": ".",
   "inputs":  ["js/app/ui/targetImage.js", "/js/app/JsonP.js" ],
   "mode":"SIMPLE",
