@@ -1,0 +1,200 @@
+/* 
+    Document   : targetImage
+    Created on : 19-abr-2012, 19:20:24
+    Author     : Nacho
+    Description:
+        Css for inserted divs in the foreign web.
+*/
+
+
+div#nuji_webtaglet div.nuji_image {
+	border:10px solid #000;
+	cursor:pointer;
+	font:bold 16px Arial,Helvetica,sans-serif;
+	padding:10px;
+	position:absolute;
+	z-index:90000;
+        -moz-border-radius: 15px;
+        -webkit-border-radius: 15px;
+}
+div#nuji_webtaglet div.nuji_image:hover {
+	border:10px solid #333
+}
+div#nuji_webtaglet div.nuji_image div {
+	background:#000;
+	color:yellow;
+	padding:10px;
+	text-align:center
+}
+div#nuji_webtaglet div.nuji_image div:hover {
+	background: #333;
+}
+
+/*
+ * Standard styling for goog.ui.Dialog.
+ *
+ * @author ssaviano@google.com (Steven Saviano)
+ * @author attila@google.com (Attila Bodis)
+ */
+
+.modal-dialog {
+  background: #e6e7e8;
+  border: 1px solid #3a5774;
+  color: #000;
+  padding: 4px;
+  position: fixed;
+  z-index:90001;
+}
+
+.modal-dialog a,
+.modal-dialog a:link,
+.modal-dialog a:visited  {
+  color: #06c;
+  cursor: pointer;
+}
+
+.modal-dialog-bg {
+  background: #666;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.modal-dialog-title {
+  background: #e0edfe;
+  color: #000;
+  cursor: pointer;
+  font-size: 120%;
+  font-weight: bold;
+
+  /* Add padding on the right to ensure the close button has room. */
+  padding: 8px 31px 8px 8px;
+
+  position: relative;
+  _zoom: 1; /* Ensures proper width in IE6 RTL. */
+}
+
+.modal-dialog-title-close {
+  /* Client apps may override the URL at which they serve the sprite. */
+  background: #e0edfe url(//ssl.gstatic.com/editor/editortoolbar.png) no-repeat -528px 0;
+  cursor: default;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: 15px;
+  vertical-align: middle;
+}
+
+.modal-dialog-buttons,
+.modal-dialog-content {
+  background-color: #fff;
+  padding: 8px;
+}
+
+.goog-buttonset-default {
+  font-weight: bold;
+}
+
+
+/*************/
+/* MBF style */
+/*************/
+#mbf-marklet-content{
+    width:500px;
+    height: 280px;
+}
+
+#mbf-marklet-content input[type=text]{
+    height:25px;
+}
+.mbf-marklet-image{
+    float:left;
+    width: 200px;
+}
+
+.mbf-marklet-image img{
+    width: 198px;
+}
+
+.mbf-marklet-form{
+    float:right;
+    width: 280px;
+    padding-left: 15px;
+}
+
+.mbf-marklet-line{
+    width:100%;
+    height:30px;
+    margin-bottom: 20px;
+}
+
+#mbf-marklet-title{
+    width:100%;    
+}
+
+#mbf-marklet-store{
+    width:100px;
+}
+
+#mbf-marklet-price{
+    width:50px;
+    margin-left:30px;
+}
+
+#logoMBF{
+    width:100%;
+    clear:both;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+
+#mbf-marklet-content-buttons{
+    text-align: center;    
+    margin-top:20px;
+}
+
+mbf-marklet-content-buttons div{
+    margin:0 auto;
+}
+
+button.mbf-button-class {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 10px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#42ff42 0%,
+		#146600);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#42ff42),
+		to(#146600));
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 1px solid #134201;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+        
+}
+
+
+.mbf-marklet-product{
+    float:left;
+    margin-bottom: 30px;
+}
+
+.mbf-marklet-product textarea{
+    height: 90px;
+    width:270px;
+}

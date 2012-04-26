@@ -1,10 +1,8 @@
 {
   // The id is used as a query parameter in the src of the <script> tag.
-  "id": "bookmarklet",
+  "id": "popup",
   "paths": ".",
-  "inputs": "main.js",
+  "inputs":  ["/ui/targetImage.js", "/js/JsonP.js" ],
   "mode":"SIMPLE",
-  "level":"VERBOSE",
-  "css-inputs":"gss/style.gss",
-  "css-output-file":"style.css"
+  "level":"VERBOSE"
 }

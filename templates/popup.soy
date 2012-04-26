@@ -1,0 +1,39 @@
+{namespace mbf.tmpl}
+
+/**
+ * Display the popup article content
+ * @param image The url.
+ * @param store The file name.
+ */
+{template .product}  
+    <div class="mbf-marklet-product">
+        <div class="mbf-marklet-image">
+            <img src="{$image}" >
+        </div>
+        <div class="mbf-marklet-form">
+            <div id="logoMBF">
+                <img src="http://www.mybuyfriends.com/logo%20MBF.png">
+            </div>
+            <div class="mbf-marklet-line"><input type="text" name="mbf-marklet-title" id="mbf-marklet-title" placeholder="Title" ></div>
+            <div class="mbf-marklet-line">
+                <input type="text" name="mbf-marklet-shop" id="mbf-marklet-store" placeholder="Store" value="{$store}">
+                <input type="text" name="mbf-marklet-price" id="mbf-marklet-price" placeholder="Price" value=""> €
+            </div>
+            <div class="mbf-marklet-line">
+                <textarea id="mbf-marklet-comment"> Any comment?</textarea>
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * Display the buttons
+ */
+{template .buttons}
+<div id="mbf-marklet-content-buttons">    
+    <div>
+       <input type="button" name="" value="Send" id="mbf-button-send" class="mbf-button-class">
+       <input type="button" name="" value="Cancel" id="mbf-button-cancel" class="mbf-button-class">
+    </div>
+</div>
+{/template}
