@@ -8,7 +8,7 @@ goog.provide("mbf.ui.nujiWebtaglet");
  * @constructor
  */
 
-mbf.ui.nujiWebtaglet = function() {
+mbf.js.ui.MbfTarget = function() {
     this.imageArray = new Array();
     this.imageCount = 0;
     this.dialogOpen = false;
@@ -27,7 +27,7 @@ mbf.ui.nujiWebtaglet = function() {
  * @return Coordinates
  */
 
-mbf.ui.nujiWebtaglet.prototype.getImageLocation = function (a) {
+mbf.js.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
         var c = a.offsetLeft;
         var b = a.offsetTop;
         while (a.offsetParent) {
@@ -46,7 +46,7 @@ mbf.ui.nujiWebtaglet.prototype.getImageLocation = function (a) {
  * Send the information to the server
  */
 
-mbf.ui.nujiWebtaglet.prototype.send = function (){    
+mbf.js.ui.MbfTargetImage.prototype.send = function (){    
     var picture = this.imageSelectedURL;
     var price = goog.dom.getElement("mbf-marklet-price").value;
     var store = location.hostname;
@@ -68,7 +68,7 @@ mbf.ui.nujiWebtaglet.prototype.send = function (){
  * Cancel popup
  */
 
-mbf.ui.nujiWebtaglet.prototype.cancel = function (){ 
+mbf.js.ui.MbfTargetImage.prototype.cancel = function (){ 
     this.dialog1.setVisible(false);
     this.stopWebtaglet();
     this.dialog1.dispose();
@@ -80,7 +80,7 @@ mbf.ui.nujiWebtaglet.prototype.cancel = function (){
  *
  */
 
-mbf.ui.nujiWebtaglet.prototype.tagProduct = function (c) {
+mbf.js.ui.MbfTargetImage.prototype.tagProduct = function (c) {
     var popup = null;
     var d = "";
     var content = "";
@@ -111,7 +111,7 @@ mbf.ui.nujiWebtaglet.prototype.tagProduct = function (c) {
  *  Inserts the CSS in the document, and finds the <img> in the document.
  */
 
-mbf.ui.nujiWebtaglet.prototype.startWebtaglet = function () {
+mbf.js.ui.MbfTargetImage.prototype.startWebtaglet = function () {
     if (!document.getElementById("nuji_webtaglet")) {
         var j = document.createElement("link");
         j.setAttribute("href", "http://mybuyfriends.com/bm_mba/bm/css/targetImage.css");
@@ -151,7 +151,7 @@ mbf.ui.nujiWebtaglet.prototype.startWebtaglet = function () {
  * Remove the elements of the bookMarklet System.
  */
 
-mbf.ui.nujiWebtaglet.prototype.stopWebtaglet = function () {
+mbf.js.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
     var b = document.getElementById("nuji_webtaglet");
     for (var a = 0; a < this.imageCount; a++) {
         var c = document.getElementById("webtag_highlight_" + a);
