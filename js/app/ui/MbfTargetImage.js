@@ -8,7 +8,7 @@ goog.provide("mbf.ui.nujiWebtaglet");
  * @constructor
  */
 
-mbf.js.ui.MbfTarget = function() {
+mbf.ui.MbfTargetImage = function() {
     this.imageArray = new Array();
     this.imageCount = 0;
     this.dialogOpen = false;
@@ -27,7 +27,7 @@ mbf.js.ui.MbfTarget = function() {
  * @return Coordinates
  */
 
-mbf.js.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
+mbf.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
         var c = a.offsetLeft;
         var b = a.offsetTop;
         while (a.offsetParent) {
@@ -46,7 +46,7 @@ mbf.js.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
  * Send the information to the server
  */
 
-mbf.js.ui.MbfTargetImage.prototype.send = function (){    
+mbf.ui.MbfTargetImage.prototype.send = function (){    
     var picture = this.imageSelectedURL;
     var price = goog.dom.getElement("mbf-marklet-price").value;
     var store = location.hostname;
@@ -68,7 +68,7 @@ mbf.js.ui.MbfTargetImage.prototype.send = function (){
  * Cancel popup
  */
 
-mbf.js.ui.MbfTargetImage.prototype.cancel = function (){ 
+mbf.ui.MbfTargetImage.prototype.cancel = function (){ 
     this.dialog.setVisible(false);
     this.stopWebtaglet();
     this.dialog.dispose();
@@ -80,7 +80,7 @@ mbf.js.ui.MbfTargetImage.prototype.cancel = function (){
  *
  */
 
-mbf.js.ui.MbfTargetImage.prototype.tagProduct = function (c) {
+mbf.ui.MbfTargetImage.prototype.tagProduct = function (c) {
     var popup = null;
     var d = "";
     var content = "";
@@ -111,7 +111,7 @@ mbf.js.ui.MbfTargetImage.prototype.tagProduct = function (c) {
  *  Inserts the CSS in the document, and finds the <img> in the document.
  */
 
-mbf.js.ui.MbfTargetImage.prototype.startWebtaglet = function () {
+mbf.ui.MbfTargetImage.prototype.startWebtaglet = function () {
     if (!document.getElementById("nuji_webtaglet")) {
         var j = document.createElement("link");
         j.setAttribute("href", "http://mybuyfriends.com/bm_mba/bm/css/targetImage.css");
@@ -151,7 +151,7 @@ mbf.js.ui.MbfTargetImage.prototype.startWebtaglet = function () {
  * Remove the elements of the bookMarklet System.
  */
 
-mbf.js.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
+mbf.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
     var b = document.getElementById("nuji_webtaglet");
     for (var a = 0; a < this.imageCount; a++) {
         var c = document.getElementById("webtag_highlight_" + a);
@@ -163,8 +163,12 @@ mbf.js.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
     }, 1000)
 };
 
-if (!window.isWebtagletRunning) {
-    //var con=goog.global.console;
+
+
+
+
+if (!window.isWebtagletRunning) {   
+    var con=goog.global.console;
     window.isWebtagletRunning = true;
-    var nuji_webtaglet_instance = new mbf.js.ui.MbfTarget();
+    var nuji_webtaglet_instance = new mbf.ui.MbfTargetImage();  
 };
