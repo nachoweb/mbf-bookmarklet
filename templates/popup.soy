@@ -11,17 +11,24 @@
             <img src="{$image}" >
         </div>
         <div class="mbf-marklet-form">
-            <div id="logoMBF">
-                <img src="http://www.mybuyfriends.com/logo%20MBF.png">
-            </div>
-            <div class="mbf-marklet-line"><input type="text" name="mbf-marklet-title" id="mbf-marklet-title" placeholder="Title" ></div>
-            <div class="mbf-marklet-line">
-                <input type="text" name="mbf-marklet-shop" id="mbf-marklet-store" placeholder="Store" value="{$store}">
-                <input type="text" name="mbf-marklet-price" id="mbf-marklet-price" placeholder="Price" value=""> €
-            </div>
-            <div class="mbf-marklet-line">
-                <textarea id="mbf-marklet-comment"> Any comment?</textarea>
-            </div>
+            <form name="mbf-marklet-f">
+                <div id="logoMBF">
+                    <img src="http://www.mybuyfriends.com/logo%20MBF.png">
+                </div>
+                <div class="mbf-marklet-line"><input type="text" name="mbf-marklet-title" id="mbf-marklet-title" placeholder="Title" ></div>
+                <div class="mbf-marklet-line">
+                    <input type="text" name="mbf-marklet-shop" id="mbf-marklet-store" placeholder="Store" value="{$store}">
+                    <input type="text" name="mbf-marklet-price" id="mbf-marklet-price" placeholder="Price" value=""> €
+                </div>
+                <div class="mbf-marklet-line">
+                    <textarea id="mbf-marklet-comment"> Any comment?</textarea>
+                </div>
+                <div class="mbf-marklet-status">
+                    <input type="radio" name="status" id="mbf-status-private"  value="private" checked="checked"> private&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="status" id="mbf-status-public" id=mbf-marklet-pulic" value="public"> public 
+                  
+                </div>
+            </form>
         </div>
     </div>
 {/template}

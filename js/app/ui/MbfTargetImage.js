@@ -49,10 +49,21 @@ mbf.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
 mbf.ui.MbfTargetImage.prototype.send = function (){    
     var picture = this.imageSelectedURL;
     var price = goog.dom.getElement("mbf-marklet-price").value;
+    if(price == "") { price = "NS"; }
     var store = location.hostname;
+    var status = "NS";
+    if(document.getElementById("mbf-status-public").checked){
+        status = "public";
+    }else{
+        status = "private";
+    }
+    con.log(status);
     var comment = goog.dom.getElement("mbf-marklet-comment").value;
+    if(comment == "") { comment="NS";}
     var title = goog.dom.getElement("mbf-marklet-title").value;
-    var d = "http://mybuyfriends.com/bm_mba/catching_bm/index.php?picture=" + encodeURIComponent(picture) + "&price=" + encodeURIComponent(price) + "&store=" + encodeURIComponent(store) + "&comment=" + encodeURIComponent(comment) + "&title=" + encodeURIComponent(title) + "&browser=" + encodeURIComponent(navigator.userAgent) + "&user=" + encodeURIComponent(this.mbfUser);
+    if(title == "")   { title = "NS"; }
+    var d ="http://localhost/closure/server/dev/save_product/save/" + encodeURIComponent(this.mbfUser) + "/" + encodeURIComponent(picture) + "/" + encodeURIComponent(price) + "/" + encodeURIComponent(title) + "/" + encodeURIComponent(comment) + "/" + encodeURIComponent(document.location.href) + "/" + encodeURIComponent(store) + "/" + encodeURIComponent(store) + "/" + "browser" + "/" + status ;
+    //var d = "http://mybuyfriends.com/bm_mba/catching_bm/index.php?picture=" + encodeURIComponent(picture) + "&price=" + encodeURIComponent(price) + "&store=" + encodeURIComponent(store) + "&comment=" + encodeURIComponent(comment) + "&title=" + encodeURIComponent(title) + "&browser=" + encodeURIComponent(navigator.userAgent) + "&user=" + encodeURIComponent(this.mbfUser);
     var b = document.createElement("script");
     b.setAttribute("type", "text/javascript");
     b.setAttribute("method", "post");

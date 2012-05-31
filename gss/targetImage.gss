@@ -198,3 +198,8 @@ button.mbf-button-class {
     height: 90px;
     width:270px;
 }
+
+.mbf-marklet-status{
+    float:left;
+    margin-top: 60px;
+}
