@@ -19,6 +19,7 @@ mbf.ui.MbfTargetImage = function() {
     this.dialog.setButtonSet(null);
     this.mbfUser = goog.global.mbfUser;
     this.imageSelectedURL = "";
+    this.base_url = "http://www.mybuyfriends.com/";
 };
 
 /**
@@ -49,7 +50,7 @@ mbf.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
 mbf.ui.MbfTargetImage.prototype.send = function (){    
     var picture = this.imageSelectedURL;
     var price = goog.dom.getElement("mbf-marklet-price").value;
-    if(price == "") { price = "NS"; }
+    if(price == "") {price = "NS";}
     var store = location.hostname;
     var status = "NS";
     if(document.getElementById("mbf-status-public").checked){
@@ -59,17 +60,19 @@ mbf.ui.MbfTargetImage.prototype.send = function (){
     }
     con.log(status);
     var comment = goog.dom.getElement("mbf-marklet-comment").value;
-    if(comment == "") { comment="NS";}
+    if(comment == "") {comment="NS";}
     var title = goog.dom.getElement("mbf-marklet-title").value;
-    if(title == "")   { title = "NS"; }
-    var d ="http://localhost/closure/server/dev/save_product/save/" + encodeURIComponent(this.mbfUser) + "/" + encodeURIComponent(picture) + "/" + encodeURIComponent(price) + "/" + encodeURIComponent(title) + "/" + encodeURIComponent(comment) + "/" + encodeURIComponent(document.location.href) + "/" + encodeURIComponent(store) + "/" + encodeURIComponent(store) + "/" + "browser" + "/" + status ;
+    if(title == "")   {title = "NS";}
+    var name = this.getName(encodeURIComponent(store));
+    var d = this.base_url + "save_product/save/" + encodeURIComponent(this.mbfUser) + "/" + encodeURIComponent(picture) + "/" + encodeURIComponent(price) + "/" + encodeURIComponent(title) + "/" + encodeURIComponent(comment) + "/" + encodeURIComponent(document.location.href) + "/" + encodeURIComponent(store) + "/" + name + "/" + "browser" + "/" + status ;
+    con.log(d);
     //var d = "http://mybuyfriends.com/bm_mba/catching_bm/index.php?picture=" + encodeURIComponent(picture) + "&price=" + encodeURIComponent(price) + "&store=" + encodeURIComponent(store) + "&comment=" + encodeURIComponent(comment) + "&title=" + encodeURIComponent(title) + "&browser=" + encodeURIComponent(navigator.userAgent) + "&user=" + encodeURIComponent(this.mbfUser);
     var b = document.createElement("script");
     b.setAttribute("type", "text/javascript");
     b.setAttribute("method", "post");
     b.setAttribute("src", d);
     document.getElementsByTagName("head")[0].appendChild(b);
-    alert("Product sent! Thanks!");
+    alert("Producto enviado!");
     this.dialog.setVisible(false);
     this.stopWebtaglet();
     this.dialog.dispose();
@@ -174,7 +177,11 @@ mbf.ui.MbfTargetImage.prototype.stopWebtaglet = function () {
     }, 1000)
 };
 
-
+mbf.ui.MbfTargetImage.prototype.getName = function (url) {
+    var name = url.split(".");
+    if(name.length == 2){return name[0];}
+    else                {return name[1];}
+}
 
 
 
