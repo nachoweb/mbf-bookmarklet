@@ -19,7 +19,8 @@ mbf.ui.MbfTargetImage = function() {
     this.dialog.setButtonSet(null);
     this.mbfUser = goog.global.mbfUser;
     this.imageSelectedURL = "";
-    this.base_url = "http://localhost/closure/server/dev/";
+    //this.base_url = "http://localhost/closure/server/dev/";
+    this.base_url = "http://www.mybuyfriends.com/closure/server/dev/";
 };
 
 /**
