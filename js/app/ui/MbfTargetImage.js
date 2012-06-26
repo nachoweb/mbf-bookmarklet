@@ -19,8 +19,8 @@ mbf.ui.MbfTargetImage = function() {
     this.dialog.setButtonSet(null);
     this.mbfUser = goog.global.mbfUser;
     this.imageSelectedURL = "";
-    //this.base_url = "http://localhost/closure/server/dev/";
-    this.base_url = "http://www.mybuyfriends.com/closure/server/dev/";
+    this.base_url = "http://localhost/closure/server/dev/";
+    //this.base_url = "http://www.mybuyfriends.com/dev/";
 };
 
 /**
@@ -48,27 +48,55 @@ mbf.ui.MbfTargetImage.prototype.getImageLocation = function (a) {
  * Send the information to the server
  */
 
-mbf.ui.MbfTargetImage.prototype.send = function (){    
+mbf.ui.MbfTargetImage.prototype.send = function (){  
+    con.log("hola");
+    //Picture
     var picture = this.imageSelectedURL;
+    
+    //Price    
     var price = goog.dom.getElement("mbf-marklet-price").value;
     if(price == "") {price = "NS";}
+    
+    //Store
     var store = location.hostname;
+    
+    //Status
     var status = "NS";
     if(document.getElementById("mbf-status-public").checked){
         status = "public";
     }else{
         status = "private";
     }
-    con.log(status);
+    
+    //Session
+    var session_index = goog.dom.getElement("mbf-session").selectedIndex 
+    var session_value = goog.dom.getElement("mbf-session").options[session_index].value 
+    
+    con.log(session_value);
+    
+    //Myself session
+    var myself = goog.dom.getElement("mbf-myself").value;
+    
+    con.log(myself);
+    
+    //Comment
     var comment = goog.dom.getElement("mbf-marklet-comment").value;
     if(comment == "") {comment="NS";}
+    
+    //Title
     var title = goog.dom.getElement("mbf-marklet-title").value;
     if(title == "")   {title = "NS";}
+    
+    //Store name
     var name = this.getName(encodeURIComponent(store));
-    var d = this.base_url + "save_product/save/" + encodeURIComponent(this.mbfUser) + "/" + encodeURIComponent(picture) + "/" + encodeURIComponent(price) + "/" + encodeURIComponent(title) + "/" + encodeURIComponent(comment) + "/" + encodeURIComponent(document.location.href) + "/" + encodeURIComponent(store) + "/" + name + "/" + "browser" + "/" + status ;
+    
+    //Send url
+    var d = this.base_url + "save_product/save/" + encodeURIComponent(this.mbfUser) + "/" + encodeURIComponent(picture) + "/" + encodeURIComponent(price) + "/" + encodeURIComponent(title) + "/" + encodeURIComponent(comment) + "/" + encodeURIComponent(document.location.href) + "/" + encodeURIComponent(store) + "/" + name + "/" + "browser" + "/" + status + "/" + session_value + "/" + myself ;
     con.log(d);
     //var d = "http://mybuyfriends.com/bm_mba/catching_bm/index.php?picture=" + encodeURIComponent(picture) + "&price=" + encodeURIComponent(price) + "&store=" + encodeURIComponent(store) + "&comment=" + encodeURIComponent(comment) + "&title=" + encodeURIComponent(title) + "&browser=" + encodeURIComponent(navigator.userAgent) + "&user=" + encodeURIComponent(this.mbfUser);
-    var b = document.createElement("script");
+   
+    //Sending
+   var b = document.createElement("script");
     b.setAttribute("type", "text/javascript");
     b.setAttribute("method", "post");
     b.setAttribute("src", d);
@@ -103,23 +131,46 @@ mbf.ui.MbfTargetImage.prototype.tagProduct = function (c) {
         /*var productHTML = goog.dom.htmlToDocumentFragment(mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname}));
         goog.dom.getElement("mbf-marklet-content").appendChild(productHTML);*/
         this.imageSelectedURL = this.imageArray[c].src;
-        content = mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname});
+        con.log(sessions);
+        content = mbf.tmpl.product({
+            "image": this.imageArray[c].src , 
+            "store": location.hostname,
+            "sessions":  sessions
+        });
         this.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
 
     }else{
-        this.imageSelectedURL = this.imageArray[c].src;
-        content = mbf.tmpl.product({"image": this.imageArray[c].src , "store": location.hostname});
-        this.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
-    }
-    this.dialog.setVisible(true);
-    var sendButton = goog.dom.getElement("mbf-button-send");
-    var cancelButton = goog.dom.getElement("mbf-button-cancel");
+        JSONP.get( 'http://localhost/closure/server/dev/bookmarklet/sessions/' + encodeURIComponent(goog.global.mbfUser) + '/', {}, function(data){
+            
+            con.log(data.sessions);
+            nuji_webtaglet_instance.imageSelectedURL = nuji_webtaglet_instance.imageArray[c].src;
+            content = mbf.tmpl.product({
+                "image": nuji_webtaglet_instance.imageArray[c].src , 
+                "store": location.hostname,
+                "sessions":  data.sessions,
+                "myself": data.myself
+            });
+            nuji_webtaglet_instance.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());
+            nuji_webtaglet_instance.dialog.setVisible(true);
+            var sendButton = goog.dom.getElement("mbf-button-send");
+            var cancelButton = goog.dom.getElement("mbf-button-cancel");
 
-    //Events
-    goog.events.listen(sendButton, goog.events.EventType.CLICK,
-        this.send, false, this);
-    goog.events.listen(cancelButton, goog.events.EventType.CLICK,
-        this.cancel, false, this);
+            //Events
+            goog.events.listen(sendButton, goog.events.EventType.CLICK,
+                nuji_webtaglet_instance.send, false, nuji_webtaglet_instance);
+            goog.events.listen(cancelButton, goog.events.EventType.CLICK,
+                nuji_webtaglet_instance.cancel, false, nuji_webtaglet_instance);
+        // var nuji_webtaglet_instance = new mbf.ui.MbfTargetImage(); 
+        });
+       /* this.imageSelectedURL = this.imageArray[c].src;
+        content = mbf.tmpl.product({
+            "image": this.imageArray[c].src ,
+            "store": location.hostname,
+            "sessions":  sessions
+       });
+        this.dialog.setContent('<div id="mbf-marklet-content"> ' + content + '</div>' + mbf.tmpl.buttons());*/
+    }
+   
 };
 
 /**
@@ -184,10 +235,102 @@ mbf.ui.MbfTargetImage.prototype.getName = function (url) {
     else                {return name[1];}
 }
 
+mbf.ui.MbfTargetImage.prototype.JSONP = (function(){
+	var counter = 0, head, query, key, window = this;
+	function load(url) {
+            var script = document.createElement('script'),
+            done = false;
+            script.src = url;
+            script.async = false;
+            script.onload = script.onreadystatechange = function() {
+                if ( !done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
+                    done = true;
+                    script.onload = script.onreadystatechange = null;
+                    if ( script && script.parentNode ) {
+                            script.parentNode.removeChild( script );
+                    }
+                }
+            };
+            if ( !head ) {
+                    head = document.getElementsByTagName('head')[0];
+            }
+            head.appendChild( script );
+	}
+	function jsonp(url, params, callback) {
+		query = "?";
+		params = params || {};
+		for ( key in params ) {
+			if ( params.hasOwnProperty(key) ) {
+				query += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&";
+			}
+		}
+		var jsonp = "json" + (++counter);
+		window[ jsonp ] = function(data){
+			callback(data);
+			try {
+				delete window[ jsonp ];
+			} catch (e) {}
+			window[ jsonp ] = null;
+		};
+ 
+		load(url + query + "callback=" + jsonp);
+		return jsonp;
+	}
+	return {
+		get:jsonp
+	};
+}());
 
+var JSONP = (function(){
+	var counter = 0, head, query, key, window = this;
+	function load(url) {
+            var script = document.createElement('script'),
+            done = false;
+            script.src = url;
+            script.async = false;
+            script.onload = script.onreadystatechange = function() {
+                if ( !done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
+                    done = true;
+                    script.onload = script.onreadystatechange = null;
+                    if ( script && script.parentNode ) {
+                            script.parentNode.removeChild( script );
+                    }
+                }
+            };
+            if ( !head ) {
+                    head = document.getElementsByTagName('head')[0];
+            }
+            head.appendChild( script );
+	}
+	function jsonp(url, params, callback) {
+		query = "?";
+		params = params || {};
+		for ( key in params ) {
+			if ( params.hasOwnProperty(key) ) {
+				query += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&";
+			}
+		}
+		var jsonp = "json" + (++counter);
+		window[ jsonp ] = function(data){
+			callback(data);
+			try {
+				delete window[ jsonp ];
+			} catch (e) {}
+			window[ jsonp ] = null;
+		};
+ 
+		load(url + query + "callback=" + jsonp);
+		return jsonp;
+	}
+	return {
+		get:jsonp
+	};
+}());
 
 if (!window.isWebtagletRunning) {   
     var con=goog.global.console;
     window.isWebtagletRunning = true;
-    var nuji_webtaglet_instance = new mbf.ui.MbfTargetImage();  
-};
+    var sessions = "ANTONIO";
+    var nuji_webtaglet_instance = new mbf.ui.MbfTargetImage();
+}
+

@@ -4,6 +4,8 @@
  * Display the popup article content
  * @param image The url.
  * @param store The file name.
+ * @param sessions The sessions
+ * @param myself The myselft sessions id
  */
 {template .product}  
     <div class="mbf-marklet-product">
@@ -28,6 +30,16 @@
                     <input type="radio" name="status" id="mbf-status-public" id=mbf-marklet-pulic" value="public"> public 
                   
                 </div>
+                <div class="mbf-marklet-sessions" style="clear:both">
+                    <select name="mbf-sessions" id="mbf-session">
+                        {foreach $session in $sessions}
+                            <option value="{$session.id}">
+                                {$session.name}  
+                            </option>
+                        {/foreach}
+                    </select>
+                </div>
+                <input type="hidden" name="mbf-myselft" id="mbf-myself" value="{$myself}" >
             </form>
         </div>
     </div>
